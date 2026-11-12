@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoPartes Express | Repuestos y Accesorios Automotrices Premium</title>
+  <title>AutoPartes Express </title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet" />
   <style>
     :root {
       --bg-black: #0D0D0D;
@@ -48,12 +48,15 @@
       font-size: 16px;
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      max-width: 100%;
+      overflow-x: clip;
     }
 
     body {
       background-color: var(--bg-black);
       color: var(--text-light);
-      overflow-x: hidden;
+      max-width: 100%;
+      overflow-x: clip;
     }
 
     img {
@@ -78,7 +81,10 @@
       list-style: none;
     }
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
       font-family: var(--font-heading);
       text-transform: uppercase;
       letter-spacing: 0.03em;
@@ -204,18 +210,21 @@
       justify-content: space-between;
       height: 74px;
       gap: 24px;
+      min-width: 0;
     }
 
     .brand-logo {
       display: inline-flex;
       align-items: center;
       gap: 11px;
-      flex-shrink: 0;
+      min-width: 0;
+      flex-shrink: 1;
     }
 
     .brand-mark {
       width: 38px;
       height: 38px;
+      flex-shrink: 0;
       border-radius: var(--radius-sm);
       background: linear-gradient(135deg, var(--accent-red), #8C0F13);
       display: grid;
@@ -228,6 +237,7 @@
       display: flex;
       flex-direction: column;
       line-height: 1;
+      min-width: 0;
     }
 
     .brand-name {
@@ -290,6 +300,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-shrink: 0;
     }
 
     .icon-btn {
@@ -352,6 +363,7 @@
 
     .search-input {
       flex: 1;
+      min-width: 0;
       height: 44px;
       background-color: var(--bg-black);
       border: 1px solid var(--border-strong);
@@ -755,13 +767,11 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-      background: linear-gradient(
-        90deg,
-        rgba(13, 13, 13, 0.22) 0%,
-        rgba(13, 13, 13, 0.72) 45%,
-        rgba(13, 13, 13, 0.96) 68%,
-        #0D0D0D 100%
-      );
+      background: linear-gradient(90deg,
+          rgba(13, 13, 13, 0.22) 0%,
+          rgba(13, 13, 13, 0.72) 45%,
+          rgba(13, 13, 13, 0.96) 68%,
+          #0D0D0D 100%);
     }
 
     .feature-banner-grid {
@@ -1359,22 +1369,47 @@
     }
 
     @media (max-width: 900px) {
+      .header-inner {
+        gap: 12px;
+      }
+
       .main-nav {
-        position: fixed;
-        top: 74px;
+        position: absolute;
+        top: 100%;
         left: 0;
         right: 0;
+        width: 100%;
+        max-height: calc(100dvh - 74px);
+        overflow-y: auto;
+        z-index: 99;
         background-color: var(--panel-dark);
+        border-top: 1px solid var(--border-subtle);
         border-bottom: 1px solid var(--border-subtle);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.78);
         flex-direction: column;
-        align-items: flex-start;
-        padding: 18px 24px 24px;
-        gap: 14px;
+        align-items: stretch;
+        padding: 10px 24px 20px;
+        gap: 0;
         display: none;
       }
 
       .main-nav.open {
         display: flex;
+      }
+
+      .main-nav .nav-link {
+        width: 100%;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--border-subtle);
+        font-size: 0.96rem;
+      }
+
+      .main-nav .nav-link:last-child {
+        border-bottom: none;
+      }
+
+      .main-nav .nav-link::after {
+        bottom: 0;
       }
 
       .mobile-toggle {
@@ -1411,8 +1446,91 @@
     }
 
     @media (max-width: 600px) {
+      .container {
+        padding-inline: 16px;
+      }
+
+      .header-inner {
+        height: 64px;
+        gap: 8px;
+      }
+
+      .main-nav {
+        max-height: calc(100dvh - 64px);
+        padding: 8px 16px 18px;
+      }
+
+      .brand-logo {
+        gap: 8px;
+      }
+
+      .brand-mark {
+        width: 32px;
+        height: 32px;
+      }
+
+      .brand-mark svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .brand-name {
+        font-size: clamp(0.9rem, 3.8vw, 1.12rem);
+        letter-spacing: 0.03em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .brand-sub {
+        font-size: 0.52rem;
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .header-actions {
+        gap: 6px;
+      }
+
+      .icon-btn {
+        width: 34px;
+        height: 34px;
+      }
+
+      .icon-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .search-form .btn-primary {
+        padding: 11px 16px;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+      }
+
+      .categories-grid,
+      .products-grid,
+      .difference-grid,
+      .reviews-grid,
+      .footer-grid,
+      .trust-grid {
+        min-width: 0;
+      }
+
+      .categories-grid>*,
+      .products-grid>*,
+      .difference-grid>*,
+      .reviews-grid>*,
+      .footer-grid>*,
+      .trust-grid>* {
+        min-width: 0;
+      }
+
       .categories-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
 
       .products-grid,
@@ -1444,16 +1562,35 @@
       .hero-overlay {
         background: linear-gradient(180deg, rgba(13, 13, 13, 0.72) 0%, rgba(13, 13, 13, 0.88) 55%, #0D0D0D 100%);
       }
+
+      .toast {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-sub {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
   <!-- 1. ENCABEZADO NEGRO -->
   <header class="site-header">
     <div class="container header-inner">
       <a href="#inicio" class="brand-logo" aria-label="AutoPartes Express Inicio">
         <span class="brand-mark" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+            stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9" />
             <circle cx="12" cy="12" r="3" />
             <path d="M12 3v6M19.8 16.5l-5.2-3M4.2 16.5l5.2-3" />
@@ -1461,7 +1598,7 @@
         </span>
         <span class="brand-text-wrap">
           <span class="brand-name">AUTO<span class="text-red">PARTES</span> EXPRESS</span>
-          <span class="brand-sub">Repuestos y Accesorios</span>
+          <span class="brand-sub">Repuestos Automotrices</span>
         </span>
       </a>
 
@@ -1475,21 +1612,24 @@
 
       <div class="header-actions">
         <button class="icon-btn" id="searchToggle" type="button" aria-label="Buscar repuestos">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
           </svg>
         </button>
 
         <button class="icon-btn" id="accountBtn" type="button" aria-label="Mi cuenta">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>
         </button>
 
         <button class="icon-btn" id="cartOpenBtn" type="button" aria-label="Abrir carrito de compras">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <circle cx="8" cy="21" r="1" />
             <circle cx="19" cy="21" r="1" />
             <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
@@ -1498,7 +1638,8 @@
         </button>
 
         <button class="icon-btn mobile-toggle" id="mobileMenuBtn" type="button" aria-label="Abrir menú">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />
@@ -1511,13 +1652,8 @@
     <div class="search-bar-drawer" id="searchDrawer">
       <div class="container">
         <form class="search-form" id="searchForm">
-          <input
-            type="search"
-            id="searchInput"
-            class="search-input"
-            placeholder="Buscar bombillos LED, fundas, soportes, limpieza..."
-            aria-label="Buscar productos"
-          />
+          <input type="search" id="searchInput" class="search-input"
+            placeholder="Buscar frenos, alternadores, bujías, suspensión, filtros..." aria-label="Buscar repuestos" />
           <button type="submit" class="btn-primary">Buscar</button>
         </form>
       </div>
@@ -1528,26 +1664,25 @@
     <!-- 2. HERO + FILA DE CONFIANZA -->
     <section class="hero-section" id="inicio">
       <div class="hero-media">
-        <img
-          src="https://loremflickr.com/1400/700/bmw,night,car"
+        <img src="https://loremflickr.com/1400/700/bmw,night,car"
           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1756837505692-ffc1b17e0600?auto=format&fit=crop&w=1400&h=700&q=85';"
-          alt="Auto deportivo BMW negro iluminado de noche"
-          class="hero-bg-img"
-        />
+          alt="Auto deportivo BMW negro iluminado de noche" class="hero-bg-img" />
         <div class="hero-overlay" aria-hidden="true"></div>
         <div class="container">
           <div class="hero-content">
-            <span class="hero-eyebrow">Accesorios y repuestos premium</span>
+            <span class="hero-eyebrow">Repuestos OEM y Aftermarket</span>
             <h1 class="hero-title">
               Mejora tu<br />
               <span class="text-red">manejo</span>
             </h1>
             <p class="hero-desc">
-              Accesorios automotrices de alto nivel, repuestos confiables, mejoras de rendimiento y detalles de estilo para tu vehículo — todo en un solo lugar.
+              Repuestos mecánicos de alta resistencia, sistemas de frenado, suspensión, piezas de motor y componentes
+              eléctricos certificados — todo en un solo lugar.
             </p>
             <a href="#mas-vendidos" class="btn-primary">
               Comprar ahora
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
@@ -1562,7 +1697,8 @@
           <div class="trust-grid">
             <div class="trust-item">
               <div class="trust-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
                   <path d="M15 18H9" />
                   <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
@@ -1578,7 +1714,8 @@
 
             <div class="trust-item">
               <div class="trust-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
                   <path d="m9 12 2 2 4-4" />
                 </svg>
@@ -1591,8 +1728,10 @@
 
             <div class="trust-item">
               <div class="trust-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
                 </svg>
               </div>
               <div>
@@ -1603,13 +1742,15 @@
 
             <div class="trust-item">
               <div class="trust-icon" aria-hidden="true">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                 </svg>
               </div>
               <div>
-                <div class="trust-title">Calidad confiada por miles</div>
-                <div class="trust-sub">Avalado por conductores</div>
+                <div class="trust-title">Calidad de Confianza</div>
+                <div class="trust-sub">Avalado por nuestros clientes</div>
               </div>
             </div>
           </div>
@@ -1617,17 +1758,18 @@
       </div>
     </section>
 
-    <!-- 3. ENCUENTRA LOS ACCESORIOS CORRECTOS (6 CATEGORÍAS) -->
+    <!-- 3. ENCUENTRA LOS REPUESTOS CORRECTOS (6 CATEGORÍAS) -->
     <section class="categories-section" id="categorias">
       <div class="container">
         <div class="section-header">
           <div>
-            <span class="section-eyebrow">Compra por categoría</span>
-            <h2 class="section-title">Encuentra los accesorios correctos</h2>
+            <span class="section-eyebrow">Compra por sistema</span>
+            <h2 class="section-title">Encuentra los repuestos correctos</h2>
           </div>
           <a href="#mas-vendidos" class="section-link">
-            Ver todas las categorías
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            Ver todos los repuestos
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
@@ -1638,106 +1780,17 @@
           <a href="#mas-vendidos" class="category-card">
             <div class="category-thumb">
               <img
-                src="https://images.unsplash.com/photo-1698915397103-5904e14427fd?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Accesorios interiores de auto en cuero deportivo"
-                loading="lazy"
-              />
-            </div>
-            <div class="category-body">
-              <div>
-                <h3 class="category-name">Interiores</h3>
-                <p class="category-caption">Confort y estilo</p>
-              </div>
-              <span class="circle-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-          </a>
-
-          <a href="#mas-vendidos" class="category-card">
-            <div class="category-thumb">
-              <img
-                src="https://images.unsplash.com/photo-1742964937391-8839f7f59814?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Accesorios exteriores para automóvil deportivo negro"
-                loading="lazy"
-              />
-            </div>
-            <div class="category-body">
-              <div>
-                <h3 class="category-name">Exteriores</h3>
-                <p class="category-caption">Realza tu presencia</p>
-              </div>
-              <span class="circle-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-          </a>
-
-          <a href="#mas-vendidos" class="category-card">
-            <div class="category-thumb">
-              <img
-                src="https://images.unsplash.com/photo-1608506375591-b90e1f955e4b?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Cuidado y limpieza automotriz en taller con espuma"
-                loading="lazy"
-              />
-            </div>
-            <div class="category-body">
-              <div>
-                <h3 class="category-name">Cuidado y limpieza</h3>
-                <p class="category-caption">Acabado impecable</p>
-              </div>
-              <span class="circle-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-          </a>
-
-          <a href="#mas-vendidos" class="category-card">
-            <div class="category-thumb">
-              <img
-                src="https://images.unsplash.com/photo-1717007873182-7cc5d673cbff?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Soporte de teléfono montado en tablero de automóvil"
-                loading="lazy"
-              />
-            </div>
-            <div class="category-body">
-              <div>
-                <h3 class="category-name">Soportes</h3>
-                <p class="category-caption">Manejo conectado</p>
-              </div>
-              <span class="circle-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-          </a>
-
-          <a href="#mas-vendidos" class="category-card">
-            <div class="category-thumb">
-              <img
                 src="https://images.unsplash.com/photo-1527383418406-f85a3b146499?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Motor V8 y piezas de rendimiento automotriz"
-                loading="lazy"
-              />
+                alt="Repuestos de motor V8, correas y distribución" loading="lazy" />
             </div>
             <div class="category-body">
               <div>
-                <h3 class="category-name">Rendimiento</h3>
-                <p class="category-caption">Más potencia real</p>
+                <h3 class="category-name">Motor</h3>
+                <p class="category-caption">Empaques y correas</p>
               </div>
               <span class="circle-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
                 </svg>
@@ -1748,18 +1801,101 @@
           <a href="#mas-vendidos" class="category-card">
             <div class="category-thumb">
               <img
-                src="https://images.unsplash.com/photo-1520505985952-418b3e5aad92?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Iluminación LED automotriz nocturna en faro"
-                loading="lazy"
-              />
+                src="https://images.unsplash.com/photo-1696494561430-de087dd0bd69?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Discos de freno ventilados y mordazas automotrices" loading="lazy" />
             </div>
             <div class="category-body">
               <div>
-                <h3 class="category-name">Iluminación</h3>
-                <p class="category-caption">Máxima visibilidad</p>
+                <h3 class="category-name">Frenos</h3>
+                <p class="category-caption">Discos y pastillas</p>
               </div>
               <span class="circle-arrow" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="#mas-vendidos" class="category-card">
+            <div class="category-thumb">
+              <img
+                src="https://images.unsplash.com/photo-1760836395716-7dd00b71311a?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Amortiguadores y resortes de suspensión automotriz" loading="lazy" />
+            </div>
+            <div class="category-body">
+              <div>
+                <h3 class="category-name">Suspensión</h3>
+                <p class="category-caption">Amortiguadores y rótulas</p>
+              </div>
+              <span class="circle-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="#mas-vendidos" class="category-card">
+            <div class="category-thumb">
+              <img
+                src="https://images.unsplash.com/photo-1765211003026-f7666ea3a948?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Batería y cableado del sistema eléctrico automotriz" loading="lazy" />
+            </div>
+            <div class="category-body">
+              <div>
+                <h3 class="category-name">Sistema eléctrico</h3>
+                <p class="category-caption">Baterías y sensores</p>
+              </div>
+              <span class="circle-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="#mas-vendidos" class="category-card">
+            <div class="category-thumb">
+              <img
+                src="https://images.unsplash.com/photo-1764869427688-3e97480f4b82?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Cárter de motor, filtro de aceite y componentes inferiores" loading="lazy" />
+            </div>
+            <div class="category-body">
+              <div>
+                <h3 class="category-name">Filtros y aceite</h3>
+                <p class="category-caption">Lubricación </p>
+              </div>
+              <span class="circle-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+            </div>
+          </a>
+
+          <a href="#mas-vendidos" class="category-card">
+            <div class="category-thumb">
+              <img
+                src="https://images.unsplash.com/photo-1782885044249-863562f7e93e?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Bujía de encendido automotriz de alta precisión" loading="lazy" />
+            </div>
+            <div class="category-body">
+              <div>
+                <h3 class="category-name">Encendido</h3>
+                <p class="category-caption">Bujías y bobinas</p>
+              </div>
+              <span class="circle-arrow" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
                 </svg>
@@ -1770,17 +1906,18 @@
       </div>
     </section>
 
-    <!-- 4. MÁS VENDIDOS (4 PRODUCTOS) -->
+    <!-- 4. MÁS VENDIDOS (4 REPUESTOS) -->
     <section class="products-section" id="mas-vendidos">
       <div class="container">
         <div class="section-header">
           <div>
-            <span class="section-eyebrow">Favoritos del taller</span>
+            <span class="section-eyebrow">Repuestos más solicitados</span>
             <h2 class="section-title">Más vendidos</h2>
           </div>
           <a href="#mas-vendidos" class="section-link" id="resetFilterLink">
-            Ver todos los productos
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            Ver todos los repuestos
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
@@ -1788,125 +1925,100 @@
         </div>
 
         <div class="products-grid" id="productsGrid">
-          <!-- Producto 1 -->
-          <article class="product-card" data-name="soporte universal de telefono soportes">
+          <!-- Repuesto 1 -->
+          <article class="product-card" data-name="kit de frenos disco pastillas mordaza ceramic oem">
             <div class="product-media">
-              <span class="product-tag hot">Top ventas</span>
+              <span class="product-tag hot">Cerámica </span>
               <img
-                src="https://images.unsplash.com/photo-1623174891354-afea5ddadcad?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Soporte universal de teléfono instalado en tablero de auto"
-                loading="lazy"
-              />
+                src="https://images.unsplash.com/photo-1696494561430-de087dd0bd69?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Disco de freno ventilado y mordaza de alto desempeño" loading="lazy" />
             </div>
             <div class="product-info">
-              <h3 class="product-title">Soporte universal de teléfono</h3>
+              <h3 class="product-title">Kit de frenos disco y mordaza</h3>
               <div class="product-rating" aria-label="Calificación 5 de 5 estrellas">
                 <span class="stars" aria-hidden="true">★★★★★</span>
-                <span class="rating-count">(124)</span>
+                <span class="rating-count">(142)</span>
               </div>
               <div class="product-price-row">
-                <span class="product-price">$19.99</span>
-                <span class="product-old-price">$26.99</span>
+                <span class="product-price">$59.99</span>
+                <span class="product-old-price">$74.99</span>
               </div>
-              <button
-                type="button"
-                class="add-cart-btn"
-                data-product="Soporte universal de teléfono"
-                data-price="19.99"
-              >
+              <button type="button" class="add-cart-btn" data-product="Kit de frenos disco y mordaza"
+                data-price="59.99">
                 Agregar al carrito
               </button>
             </div>
           </article>
 
-          <!-- Producto 2 -->
-          <article class="product-card" data-name="fundas de asiento premium interiores">
+          <!-- Repuesto 2 -->
+          <article class="product-card" data-name="alternador alto rendimiento electrico motor">
             <div class="product-media">
-              <span class="product-tag">Cuero sintético</span>
+              <span class="product-tag">Top ventas</span>
               <img
-                src="https://images.unsplash.com/photo-1689310871987-b95b4e87eba7?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Fundas de asiento premium deportivas en negro con detalles rojos"
-                loading="lazy"
-              />
+                src="https://images.unsplash.com/photo-1720929630231-8241e3e5bcca?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Alternador cromado de alto rendimiento y poleas de motor" loading="lazy" />
             </div>
             <div class="product-info">
-              <h3 class="product-title">Fundas de asiento premium</h3>
+              <h3 class="product-title">Alternador de alto rendimiento</h3>
               <div class="product-rating" aria-label="Calificación 5 de 5 estrellas">
                 <span class="stars" aria-hidden="true">★★★★★</span>
-                <span class="rating-count">(98)</span>
+                <span class="rating-count">(96)</span>
               </div>
               <div class="product-price-row">
-                <span class="product-price">$49.99</span>
-                <span class="product-old-price">$64.99</span>
+                <span class="product-price">$129.99</span>
+                <span class="product-old-price">$155.00</span>
               </div>
-              <button
-                type="button"
-                class="add-cart-btn"
-                data-product="Fundas de asiento premium"
-                data-price="49.99"
-              >
+              <button type="button" class="add-cart-btn" data-product="Alternador de alto rendimiento"
+                data-price="129.99">
                 Agregar al carrito
               </button>
             </div>
           </article>
 
-          <!-- Producto 3 -->
-          <article class="product-card" data-name="bombillos led iluminacion luces">
+          <!-- Repuesto 3 -->
+          <article class="product-card" data-name="juego bujias iridium encendido motor">
             <div class="product-media">
-              <span class="product-tag hot">6000K Pro</span>
+              <span class="product-tag hot">Encendido</span>
               <img
-                src="https://images.unsplash.com/photo-1730742298439-6d82f9edc3c2?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Bombillos LED de alta intensidad instalados en faro delantero"
-                loading="lazy"
-              />
+                src="https://images.unsplash.com/photo-1782885044133-27c4df887d96?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Juego de cuatro bujías Iridium para motor automotriz" loading="lazy" />
             </div>
             <div class="product-info">
-              <h3 class="product-title">Bombillos LED</h3>
+              <h3 class="product-title">Juego de bujías Iridium (x4)</h3>
               <div class="product-rating" aria-label="Calificación 5 de 5 estrellas">
                 <span class="stars" aria-hidden="true">★★★★★</span>
-                <span class="rating-count">(76)</span>
+                <span class="rating-count">(118)</span>
               </div>
               <div class="product-price-row">
-                <span class="product-price">$39.99</span>
-                <span class="product-old-price">$49.99</span>
+                <span class="product-price">$34.99</span>
+                <span class="product-old-price">$44.99</span>
               </div>
-              <button
-                type="button"
-                class="add-cart-btn"
-                data-product="Bombillos LED"
-                data-price="39.99"
-              >
+              <button type="button" class="add-cart-btn" data-product="Juego de bujías Iridium (x4)" data-price="34.99">
                 Agregar al carrito
               </button>
             </div>
           </article>
 
-          <!-- Producto 4 -->
-          <article class="product-card" data-name="kit de cuidado limpieza lavado">
+          <!-- Repuesto 4 -->
+          <article class="product-card" data-name="kit amortiguadores suspension resortes filtros">
             <div class="product-media">
-              <span class="product-tag">Detailing</span>
+              <span class="product-tag">Suspensión</span>
               <img
-                src="https://images.unsplash.com/photo-1565689876697-e467b6c54da2?auto=format&fit=crop&w=600&h=450&q=80"
-                alt="Kit de cuidado y limpieza profunda para rines y carrocería"
-                loading="lazy"
-              />
+                src="https://images.unsplash.com/photo-1760836395716-7dd00b71311a?auto=format&fit=crop&w=600&h=450&q=80"
+                alt="Juego de amortiguadores y resortes de suspensión reforzados" loading="lazy" />
             </div>
             <div class="product-info">
-              <h3 class="product-title">Kit de cuidado</h3>
+              <h3 class="product-title">Kit de amortiguadores reforzados</h3>
               <div class="product-rating" aria-label="Calificación 5 de 5 estrellas">
                 <span class="stars" aria-hidden="true">★★★★★</span>
-                <span class="rating-count">(112)</span>
+                <span class="rating-count">(84)</span>
               </div>
               <div class="product-price-row">
-                <span class="product-price">$24.99</span>
-                <span class="product-old-price">$32.00</span>
+                <span class="product-price">$149.99</span>
+                <span class="product-old-price">$185.00</span>
               </div>
-              <button
-                type="button"
-                class="add-cart-btn"
-                data-product="Kit de cuidado"
-                data-price="24.99"
-              >
+              <button type="button" class="add-cart-btn" data-product="Kit de amortiguadores reforzados"
+                data-price="149.99">
                 Agregar al carrito
               </button>
             </div>
@@ -1917,25 +2029,24 @@
 
     <!-- 5. BANNER DESTACADO CON IMAGEN DE RIN/LLANTA -->
     <section class="feature-banner">
-      <img
-        src="https://images.unsplash.com/photo-1686377920194-d3eabbcaa046?auto=format&fit=crop&w=1400&h=600&q=85"
-        alt="Rin de aleación deportivo y llanta de alto rendimiento"
-        class="feature-banner-img"
-        loading="lazy"
-      />
+      <img src="https://images.unsplash.com/photo-1686377920194-d3eabbcaa046?auto=format&fit=crop&w=1400&h=600&q=85"
+        alt="Rin de aleación deportivo y sistema de rodamiento automotriz" class="feature-banner-img" loading="lazy" />
       <div class="feature-banner-overlay" aria-hidden="true"></div>
       <div class="container feature-banner-grid">
         <div class="feature-banner-content">
-          <span class="section-eyebrow">Estilo y personalización</span>
+          <span class="section-eyebrow">Seguridad y desempeño mecánico</span>
           <h2 class="feature-banner-title">
             Haz que tu auto <span class="text-red">destaque</span>
           </h2>
           <p class="feature-banner-desc">
-            Desde mejoras sutiles de cabina hasta acabados exteriores deportivos, encuentra el equipamiento exacto para darle carácter propio a tu vehículo.
+            Desde discos de freno ventilados hasta rodamientos, rines y piezas de transmisión, encuentra el repuesto
+            exacto
+            para responder en cada kilómetro.
           </p>
           <a href="#categorias" class="btn-outline">
-            Explorar accesorios
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            Explorar repuestos
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
@@ -1957,20 +2068,22 @@
         <div class="difference-grid">
           <div class="diff-card">
             <div class="diff-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
                 <path d="m9 12 2 2 4-4" />
               </svg>
             </div>
             <div>
-              <h3 class="diff-title">Productos de alta calidad</h3>
-              <p class="diff-text">Componentes probados bajo exigencia real de ruta y taller.</p>
+              <h3 class="diff-title">Repuestos certificados </h3>
+              <p class="diff-text">Piezas mecánicas probadas bajo exigencia real de ruta y taller.</p>
             </div>
           </div>
 
           <div class="diff-card">
             <div class="diff-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
                 <path d="M15 18H9" />
                 <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
@@ -1980,25 +2093,28 @@
             </div>
             <div>
               <h3 class="diff-title">Envío rápido y confiable</h3>
-              <p class="diff-text">Despacho ágil con seguimiento en tiempo real a todo el país.</p>
+              <p class="diff-text">Despacho ágil a talleres mecánicos y domicilios en todo el país.</p>
             </div>
           </div>
 
           <div class="diff-card">
             <div class="diff-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
               </svg>
             </div>
             <div>
-              <h3 class="diff-title">Soporte dedicado</h3>
-              <p class="diff-text">Asesoría directa para elegir compatibilidad exacta con tu modelo.</p>
+              <h3 class="diff-title">Soporte técnico dedicado</h3>
+              <p class="diff-text">Validamos compatibilidad exacta por marca, modelo y año.</p>
             </div>
           </div>
 
           <div class="diff-card">
             <div class="diff-icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
                 <circle cx="9" cy="7" r="4" />
                 <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
@@ -2007,7 +2123,7 @@
             </div>
             <div>
               <h3 class="diff-title">Confiado por miles</h3>
-              <p class="diff-text">Más de 18,000 conductores equipan su auto con nosotros.</p>
+              <p class="diff-text">Más de 18,000 conductores y talleres confían en nuestras piezas.</p>
             </div>
           </div>
         </div>
@@ -2016,12 +2132,8 @@
 
     <!-- 7. CONDUCTORES REALES. RESEÑAS REALES. -->
     <section class="reviews-section" id="resenas">
-      <img
-        src="https://images.unsplash.com/photo-1542328689-df6c076c1604?auto=format&fit=crop&w=1400&h=700&q=80"
-        alt="Auto deportivo oscuro con luces traseras encendidas de noche"
-        class="reviews-bg-img"
-        loading="lazy"
-      />
+      <img src="https://images.unsplash.com/photo-1542328689-df6c076c1604?auto=format&fit=crop&w=1400&h=700&q=80"
+        alt="Auto deportivo oscuro con luces traseras encendidas de noche" class="reviews-bg-img" loading="lazy" />
       <div class="reviews-overlay" aria-hidden="true"></div>
       <div class="container reviews-inner">
         <div class="section-header">
@@ -2030,8 +2142,9 @@
             <h2 class="section-title">Conductores reales. Reseñas reales.</h2>
           </div>
           <a href="#mas-vendidos" class="section-link">
-            Ver productos mejor calificados
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            Ver repuestos mejor calificados
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
@@ -2046,16 +2159,14 @@
                 <span class="quote-mark" aria-hidden="true">”</span>
               </div>
               <p class="review-text">
-                “Excelente calidad en los bombillos LED y el kit de limpieza. Instalé las luces en menos de quince minutos y el cambio nocturno es brutal.”
+                “Excelente calidad en el kit de frenos y las bujías Iridium. Mi mecánico confirmó medidas exactas de
+                fábrica y el frenado mejoró desde el primer kilómetro.”
               </p>
             </div>
             <div class="review-author">
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=240&h=240&crop=faces&q=80"
-                alt="Retrato de Carlos Méndez"
-                class="review-avatar"
-                loading="lazy"
-              />
+                alt="Retrato de Carlos Méndez" class="review-avatar" loading="lazy" />
               <div>
                 <div class="review-name">Carlos Méndez</div>
                 <div class="review-city">Ciudad de México</div>
@@ -2070,16 +2181,14 @@
                 <span class="quote-mark" aria-hidden="true">”</span>
               </div>
               <p class="review-text">
-                “Las fundas de asiento premium ajustaron perfecto en mi sedán y se sienten como tapicería de fábrica. El envío llegó antes de lo esperado.”
+                “Pedí el alternador de alto rendimiento porque el original falló y llegó al día siguiente. Traía
+                garantía sellada y resolvió el problema eléctrico al instante.”
               </p>
             </div>
             <div class="review-author">
               <img
                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=240&h=240&crop=faces&q=80"
-                alt="Retrato de Valeria Rojas"
-                class="review-avatar"
-                loading="lazy"
-              />
+                alt="Retrato de Valeria Rojas" class="review-avatar" loading="lazy" />
               <div>
                 <div class="review-name">Valeria Rojas</div>
                 <div class="review-city">Bogotá</div>
@@ -2094,16 +2203,14 @@
                 <span class="quote-mark" aria-hidden="true">”</span>
               </div>
               <p class="review-text">
-                “El soporte universal no vibra ni en calles empedradas. Atención rápida por soporte cuando consulté compatibilidad para mi camioneta.”
+                “Los amortiguadores reforzados llegaron completos y listos para instalar. El soporte técnico verificó el
+                número de parte exacto para mi camioneta sin margen de error.”
               </p>
             </div>
             <div class="review-author">
               <img
                 src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=240&h=240&crop=faces&q=80"
-                alt="Retrato de Diego Herrera"
-                class="review-avatar"
-                loading="lazy"
-              />
+                alt="Retrato de Diego Herrera" class="review-avatar" loading="lazy" />
               <div>
                 <div class="review-name">Diego Herrera</div>
                 <div class="review-city">Monterrey</div>
@@ -2122,7 +2229,8 @@
         <div>
           <a href="#inicio" class="brand-logo">
             <span class="brand-mark" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+                stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="9" />
                 <circle cx="12" cy="12" r="3" />
                 <path d="M12 3v6M19.8 16.5l-5.2-3M4.2 16.5l5.2-3" />
@@ -2130,28 +2238,33 @@
             </span>
             <span class="brand-text-wrap">
               <span class="brand-name">AUTO<span class="text-red">PARTES</span> EXPRESS</span>
-              <span class="brand-sub">Repuestos y Accesorios</span>
+              <span class="brand-sub">Repuestos Automotrices</span>
             </span>
           </a>
           <p class="footer-about-text">
-            Tu tienda especializada en accesorios automotrices, iluminación LED, cuidado exterior y repuestos de alto desempeño con envíos rápidos.
+            Tu tienda especializada en repuestos mecánicos, frenos, suspensión, encendido, piezas de motor y sistema
+            eléctrico con garantía y envíos rápidos.
           </p>
           <div class="social-row">
             <a href="#contacto" class="social-link" aria-label="Facebook">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
               </svg>
             </a>
             <a href="#contacto" class="social-link" aria-label="Instagram">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
             </a>
             <a href="#contacto" class="social-link" aria-label="YouTube">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
                 <path d="m10 15 5-3-5-3v6Z" />
               </svg>
             </a>
@@ -2176,50 +2289,49 @@
           <h3 class="footer-col-title">Contacto</h3>
           <div class="contact-list">
             <div class="contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
               <span>Av. Automotriz 1420, Zona Industrial</span>
             </div>
             <div class="contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
               </svg>
               <span>+52 55 4892 1030</span>
             </div>
             <div class="contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <rect width="20" height="16" x="2" y="4" rx="2" />
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
               </svg>
               <span>soporte@autopartesexpress.com</span>
             </div>
             <div class="contact-item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
-              <span>Lun - Dom: 8:00 AM - 8:00 PM</span>
+              <span>Lun - Dom: 8:00 AM - 7:00 PM</span>
             </div>
           </div>
         </div>
 
         <!-- Bloque de newsletter en rojo -->
         <div class="newsletter-box">
-          <h3 class="newsletter-title">Newsletter</h3>
+          <h3 class="newsletter-title">Suscríbete!</h3>
           <p class="newsletter-desc">
-            Suscríbete para recibir lanzamientos, descuentos exclusivos y guías de cuidado automotriz.
+            Suscríbete para recibir disponibilidad de repuestos, descuentos para tu vehículo y guías de mantenimiento.
           </p>
           <form class="newsletter-form" id="newsletterForm">
-            <input
-              type="email"
-              id="newsletterEmail"
-              class="newsletter-input"
-              placeholder="Ingresa tu correo electrónico"
-              required
-              aria-label="Correo electrónico para newsletter"
-            />
+            <input type="email" id="newsletterEmail" class="newsletter-input"
+              placeholder="Ingresa tu correo electrónico" required aria-label="Correo electrónico para newsletter" />
             <button type="submit" class="newsletter-btn">Suscribirme</button>
           </form>
           <div class="newsletter-feedback" id="newsletterFeedback">
@@ -2228,10 +2340,10 @@
           <div class="payment-strip">
             <span class="payment-label">Pagos</span>
             <div class="payment-badges">
-              <span class="pay-chip">VISA</span>
-              <span class="pay-chip">MC</span>
-              <span class="pay-chip">AMEX</span>
-              <span class="pay-chip">PAYPAL</span>
+              <span class="pay-chip">Pago Móvil</span>
+              <span class="pay-chip">Transferencia</span>
+              <span class="pay-chip">Binance</span>
+              <span class="pay-chip">Efectivo</span>
             </div>
           </div>
         </div>
@@ -2255,14 +2367,15 @@
     <div class="cart-head">
       <h3>Tu carrito</h3>
       <button class="icon-btn" id="cartCloseBtn" type="button" aria-label="Cerrar carrito">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 6 6 18" />
           <path d="m6 6 12 12" />
         </svg>
       </button>
     </div>
     <div class="cart-items" id="cartItems">
-      <p class="cart-empty">Tu carrito está vacío. Agrega accesorios desde la tienda.</p>
+      <p class="cart-empty">Tu carrito está vacío. Agrega repuestos desde la tienda.</p>
     </div>
     <div class="cart-foot">
       <div class="cart-subtotal">
@@ -2304,7 +2417,7 @@
         cartItemsEl.innerHTML = '';
 
         if (cart.size === 0) {
-          cartItemsEl.innerHTML = '<p class="cart-empty">Tu carrito está vacío. Agrega accesorios desde la tienda.</p>';
+          cartItemsEl.innerHTML = '<p class="cart-empty">Tu carrito está vacío. Agrega repuestos desde la tienda.</p>';
         } else {
           cart.forEach((item, name) => {
             totalCount += item.qty;
@@ -2362,7 +2475,7 @@
 
       document.getElementById('checkoutBtn').addEventListener('click', () => {
         if (cart.size === 0) {
-          showToast('Agrega al menos un accesorio primero');
+          showToast('Agrega al menos un repuesto primero');
           return;
         }
         cart.clear();
@@ -2377,25 +2490,49 @@
 
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const mainNav = document.getElementById('mainNav');
-      mobileMenuBtn.addEventListener('click', () => {
-        mainNav.classList.toggle('open');
-      });
-      mainNav.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-          mainNav.classList.remove('open');
-          mainNav.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
-          link.classList.add('active');
-        });
-      });
-
       const searchToggle = document.getElementById('searchToggle');
       const searchDrawer = document.getElementById('searchDrawer');
       const searchInput = document.getElementById('searchInput');
       const productCards = document.querySelectorAll('#productsGrid .product-card');
 
+      function setMenuOpen(open) {
+        mainNav.classList.toggle('open', open);
+        mobileMenuBtn.setAttribute('aria-expanded', String(open));
+        if (open) searchDrawer.classList.remove('open');
+      }
+
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setMenuOpen(!mainNav.classList.contains('open'));
+      });
+      mainNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          setMenuOpen(false);
+          mainNav.querySelectorAll('a').forEach((a) => a.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+
+      document.addEventListener('click', (e) => {
+        if (mainNav.classList.contains('open') && !mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          setMenuOpen(false);
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          setMenuOpen(false);
+          searchDrawer.classList.remove('open');
+          toggleCart(false);
+        }
+      });
+
       searchToggle.addEventListener('click', () => {
-        searchDrawer.classList.toggle('open');
-        if (searchDrawer.classList.contains('open')) {
+        const next = !searchDrawer.classList.contains('open');
+        if (next) setMenuOpen(false);
+        searchDrawer.classList.toggle('open', next);
+        if (next) {
           searchInput.focus();
         }
       });
@@ -2437,5 +2574,5 @@
     })();
   </script>
 </body>
-</html>
 
+</html>
